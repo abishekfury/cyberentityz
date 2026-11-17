@@ -1,4 +1,4 @@
-/**
+﻿/**
  * CYBERENTITYZ™ — Enterprise Nord & Briskinfosec Architecture
  * Mega-Menus, Domain Switcher, 3D Mesh & Interactive Practices
  */
@@ -109,116 +109,393 @@ function initHeroSpotlight() {
   requestAnimationFrame(renderSpotlight);
 }
 
+/* ==========================================================================
+   2. INTERACTIVE 3D LIQUID SCULPTURE & HOVER PARTICLE VORTEX ENGINE
+   (Exact Match to liquidsculpturehero.framer.website / Images 1 & 2)
+   - 3D Braided Mobius Loop sculpture with horizontal undulating wings
+   - Embedded specular 3D pearls & thousands of silky strand filaments
+   - Dynamic fluid particle vortex & liquid dispersion on mouse hover (Image 2)
+   - Seamless spring-back restoration to resting sculpture when idle (Image 1)
+   ========================================================================== */
 function initHeroMesh() {
+  initHeroVortexField();
+}
+
+/* ==========================================================================
+   2. 3D MATHEMATICAL VORTEX FIELD (MATCHING VORTEXFIELD.FRAMER.WEBSITE)
+   Parametric Ruled Hyperboloid Vector Lattice, Moiré Streamlines & Glowing Quantum Nodes
+   ========================================================================== */
+function initHeroVortexField() {
   const canvas = document.getElementById('heroCyberCanvas') || document.getElementById('heroMeshCanvas');
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d');
-  let width, height;
+  const heroSec = document.getElementById('hero') || canvas.parentElement || document.body;
 
-  function resize() {
-    width = canvas.width = canvas.parentElement ? canvas.parentElement.offsetWidth : window.innerWidth;
-    height = canvas.height = canvas.parentElement ? canvas.parentElement.offsetHeight : 650;
-  }
-  resize();
-  window.addEventListener('resize', resize);
+  let width = 0, height = 0, dpr = 1;
+  let centerX = 0, centerY = 0;
 
-  let rotationX = 0;
-  let rotationY = 0;
+  let mouseX = -9999;
+  let mouseY = -9999;
   let targetRotX = 0;
   let targetRotY = 0;
+  let smoothRotX = 0;
+  let smoothRotY = 0;
+  let isHovered = false;
+
+  function resize() {
+    width = heroSec.offsetWidth || window.innerWidth;
+    height = Math.max(720, heroSec.offsetHeight || window.innerHeight);
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    canvas.width = Math.floor(width * dpr);
+    canvas.height = Math.floor(height * dpr);
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
+
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.scale(dpr, dpr);
+
+    centerX = width * 0.5;
+    centerY = height * 0.54; // Position throat in lower half for monumental trumpet flare
+  }
+
+  // Pointer tracking with smooth spring responsiveness
+  heroSec.addEventListener('mouseenter', () => { isHovered = true; });
+  heroSec.addEventListener('mouseleave', () => {
+    isHovered = false;
+    mouseX = -9999;
+    mouseY = -9999;
+  });
 
   window.addEventListener('mousemove', (e) => {
     const rect = canvas.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    targetRotY = (e.clientX - centerX) * 0.0012;
-    targetRotX = (e.clientY - centerY) * 0.0012;
+    if (e.clientX >= rect.left && e.clientX <= rect.right &&
+        e.clientY >= rect.top && e.clientY <= rect.bottom) {
+      isHovered = true;
+      mouseX = e.clientX - rect.left;
+      mouseY = e.clientY - rect.top;
+
+      targetRotY = (mouseX / width - 0.5) * 0.55;
+      targetRotX = (mouseY / height - 0.5) * 0.32;
+    } else {
+      isHovered = false;
+    }
   });
 
-  const points = [];
-  const rings = 16;
-  const segments = 24;
-  const radius = Math.min(220, window.innerWidth * 0.22);
+  window.addEventListener('touchmove', (e) => {
+    if (e.touches && e.touches.length > 0) {
+      const rect = canvas.getBoundingClientRect();
+      const touch = e.touches[0];
+      if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
+          touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
+        isHovered = true;
+        mouseX = touch.clientX - rect.left;
+        mouseY = touch.clientY - rect.top;
 
-  for (let i = 0; i <= rings; i++) {
-    const theta = (i * Math.PI) / rings;
-    for (let j = 0; j < segments; j++) {
-      const phi = (j * 2 * Math.PI) / segments;
-      const x = radius * Math.sin(theta) * Math.cos(phi);
-      const y = radius * Math.cos(theta);
-      const z = radius * Math.sin(theta) * Math.sin(phi);
-      points.push({ x, y, z });
+        targetRotY = (mouseX / width - 0.5) * 0.55;
+        targetRotX = (mouseY / height - 0.5) * 0.32;
+      }
     }
+  }, { passive: true });
+
+  window.addEventListener('touchend', () => {
+    isHovered = false;
+    mouseX = -9999;
+    mouseY = -9999;
+  });
+
+  // Hyperboloid Profile Function matching vortexfield.framer.website
+  // u in [-1, 1], returns { r, y } in 3D local coordinates
+  function getVortexProfile(u) {
+    const waistU = 0.32; // Waist offset below center for dramatic trumpet bell
+    const waistR = Math.min(width * 0.085, 95);
+    let r, y;
+
+    if (u <= waistU) {
+      // Upper flare expanding outward and upward toward top screen corners
+      const d = (waistU - u) / (1 + waistU);
+      r = waistR + (width * 0.72) * Math.pow(d, 2.08);
+      y = (u - waistU) * (height * 0.65);
+    } else {
+      // Lower bell flaring downward into the pedestal base
+      const d = (u - waistU) / (1 - waistU);
+      r = waistR + (width * 0.36) * Math.pow(d, 1.48);
+      y = (u - waistU) * (height * 0.44);
+    }
+
+    return { r, y };
   }
 
+  // Create Streamlines & Luminous Particles
+  const STRAND_COUNT_CW = 50;
+  const STRAND_COUNT_CCW = 50;
+  const POINTS_PER_STRAND = 46;
+  const TWIST_ANGLE = 2.55; // Radians of spiral twist along vertical axis
+
+  // Luminous quantum nodes traveling along vortex streamlines
+  const PARTICLE_COUNT = 75;
+  const particles = [];
+
+  for (let p = 0; p < PARTICLE_COUNT; p++) {
+    const isCW = p % 2 === 0;
+    particles.push({
+      isCW,
+      strandIdx: isCW ? (p % STRAND_COUNT_CW) : (p % STRAND_COUNT_CCW),
+      u: (Math.random() * 2) - 1, // Range [-1, 1]
+      speed: 0.0008 + Math.random() * 0.0016,
+      direction: Math.random() > 0.38 ? 1 : -1,
+      size: 1.6 + Math.random() * 2.4,
+      pulseOffset: Math.random() * Math.PI * 2,
+      // Starlight amethyst violet, pure brilliant white, or subtle amber
+      hueType: Math.random() > 0.35 ? 'violet' : (Math.random() > 0.3 ? 'white' : 'amber')
+    });
+  }
+
+  // Transverse Latitude Hoops (Ruled Hyperboloid Skeleton)
+  const LATITUDE_HOOPS = [-0.94, -0.74, -0.52, -0.3, -0.08, 0.12, 0.32, 0.58, 0.85];
+
   let time = 0;
+  let isRunning = true;
+
+  // Visibility Optimization
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      isRunning = entry.isIntersecting;
+      if (isRunning) requestAnimationFrame(render);
+    });
+  }, { threshold: 0.05 });
+  observer.observe(heroSec);
+
+  window.addEventListener('resize', resize);
+  resize();
 
   function render() {
-    time += 0.012;
-    rotationX += (targetRotX - rotationX) * 0.06;
-    rotationY += (targetRotY - rotationY) * 0.06;
+    if (!isRunning) return;
 
+    time += 0.016;
+
+    // Smooth spring tracking for interactive camera tilt
+    if (!isHovered) {
+      targetRotX *= 0.95;
+      targetRotY *= 0.95;
+    }
+    smoothRotX += (targetRotX - smoothRotX) * 0.06;
+    smoothRotY += (targetRotY - smoothRotY) * 0.06;
+
+    // Pitch (slight downward angle for 3D depth) & Yaw (gentle continuous spin)
+    const pitch = 0.22 + smoothRotX;
+    const yaw = time * 0.016 + smoothRotY;
+
+    const cosYaw = Math.cos(yaw);
+    const sinYaw = Math.sin(yaw);
+    const cosPitch = Math.cos(pitch);
+    const sinPitch = Math.sin(pitch);
+
+    // Clear frame to pure jet black
     ctx.clearRect(0, 0, width, height);
-    const cx = width / 2;
-    const cy = height / 2;
 
-    const projected = [];
+    // 3D Rotation & Perspective Projection Function
+    function project3D(x, y, z) {
+      // 1. Yaw rotation (around Y axis)
+      const x1 = x * cosYaw + z * sinYaw;
+      const z1 = -x * sinYaw + z * cosYaw;
 
-    const cosY = Math.cos(rotationY + time * 0.5);
-    const sinY = Math.sin(rotationY + time * 0.5);
-    const cosX = Math.cos(rotationX);
-    const sinX = Math.sin(rotationX);
+      // 2. Pitch rotation (around X axis)
+      const y2 = y * cosPitch - z1 * sinPitch;
+      const z2 = y * sinPitch + z1 * cosPitch;
 
-    for (let i = 0; i < points.length; i++) {
-      const p = points[i];
+      // 3. Perspective Camera
+      const dist = 1050;
+      const zCam = dist + z2;
+      const scale = 950 / Math.max(120, zCam);
 
-      let x1 = p.x * cosY - p.z * sinY;
-      let z1 = p.z * cosY + p.x * sinY;
+      let px = centerX + x1 * scale;
+      let py = centerY + y2 * scale;
 
-      let y2 = p.y * cosX - z1 * sinX;
-      let z2 = z1 * cosX + p.y * sinX;
+      // Cursor magnetic lens interaction (fluid ripple near pointer)
+      if (isHovered && mouseX > -1000) {
+        const dx = px - mouseX;
+        const dy = py - mouseY;
+        const distSq = dx * dx + dy * dy;
+        const radius = 180;
+        if (distSq < radius * radius && distSq > 4) {
+          const d = Math.sqrt(distSq);
+          const force = (1 - d / radius) * 16;
+          px += (dx / d) * force;
+          py += (dy / d) * force;
+        }
+      }
 
-      const fov = 420;
-      const scale = fov / (fov + z2 + 120);
-      const x2D = x1 * scale + cx;
-      const y2D = y2 * scale + cy;
-
-      projected.push({ x: x2D, y: y2D, z: z2, scale });
+      return {
+        x: px,
+        y: py,
+        z: z2,
+        scale: scale,
+        inFront: z2 > 0
+      };
     }
 
-    ctx.lineWidth = 0.8;
-    ctx.strokeStyle = 'rgba(235, 78, 0, 0.25)';
+    // --- 1. RENDER TRANSVERSE LATITUDE HOOPS (Depth Structure) ---
+    ctx.lineWidth = 0.75;
+    for (let k = 0; k < LATITUDE_HOOPS.length; k++) {
+      const uVal = LATITUDE_HOOPS[k];
+      const prof = getVortexProfile(uVal);
+      const ringSteps = 50;
 
-    for (let i = 0; i < rings; i++) {
-      for (let j = 0; j < segments; j++) {
-        const idx = i * segments + j;
-        const nextJ = i * segments + ((j + 1) % segments);
-        const nextI = (i + 1) * segments + j;
+      ctx.beginPath();
+      for (let s = 0; s <= ringSteps; s++) {
+        const ang = (s / ringSteps) * Math.PI * 2;
+        const x3d = prof.r * Math.cos(ang);
+        const y3d = prof.y;
+        const z3d = prof.r * Math.sin(ang);
 
-        if (projected[idx] && projected[nextJ]) {
-          ctx.beginPath();
-          ctx.moveTo(projected[idx].x, projected[idx].y);
-          ctx.lineTo(projected[nextJ].x, projected[nextJ].y);
-          ctx.stroke();
+        const proj = project3D(x3d, y3d, z3d);
+        if (s === 0) ctx.moveTo(proj.x, proj.y);
+        else ctx.lineTo(proj.x, proj.y);
+      }
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.07)';
+      ctx.stroke();
+    }
+
+    // --- 2. RENDER STREAMLINES (Family A: Clockwise + Family B: Counter-Clockwise) ---
+    const families = [
+      { count: STRAND_COUNT_CW, sign: 1, isCW: true },
+      { count: STRAND_COUNT_CCW, sign: -1, isCW: false }
+    ];
+
+    for (let f = 0; f < families.length; f++) {
+      const fam = families[f];
+      const totalStrands = fam.count;
+      const sign = fam.sign;
+
+      for (let i = 0; i < totalStrands; i++) {
+        const baseAngle = (i / totalStrands) * Math.PI * 2;
+        
+        ctx.beginPath();
+        let frontAccum = 0;
+
+        for (let p = 0; p < POINTS_PER_STRAND; p++) {
+          const u = -1 + (p / (POINTS_PER_STRAND - 1)) * 2;
+          const prof = getVortexProfile(u);
+
+          // Streamline helical spiral twist with subtle organic undulation
+          const twist = sign * TWIST_ANGLE * u;
+          const undulation = Math.sin(u * 2.5 + time * sign * 0.45) * 0.032;
+          const theta = baseAngle + twist + undulation;
+
+          const x3d = prof.r * Math.cos(theta);
+          const y3d = prof.y;
+          const z3d = prof.r * Math.sin(theta);
+
+          const proj = project3D(x3d, y3d, z3d);
+          if (proj.inFront) frontAccum++;
+
+          if (p === 0) {
+            ctx.moveTo(proj.x, proj.y);
+          } else {
+            ctx.lineTo(proj.x, proj.y);
+          }
         }
 
-        if (i < rings - 1 && projected[idx] && projected[nextI]) {
-          ctx.beginPath();
-          ctx.moveTo(projected[idx].x, projected[idx].y);
-          ctx.lineTo(projected[nextI].x, projected[nextI].y);
-          ctx.stroke();
+        // Shading based on orientation and depth
+        const frontRatio = frontAccum / POINTS_PER_STRAND;
+        let lineAlpha, lineWidth;
+
+        if (frontRatio > 0.5) {
+          // Front-facing strand: crisp, bright, luminous
+          lineAlpha = 0.22 + frontRatio * 0.52;
+          lineWidth = 0.9 + frontRatio * 0.35;
+          ctx.strokeStyle = 'rgba(255, 255, 255, ' + lineAlpha.toFixed(3) + ')';
+        } else {
+          // Back-facing strand: delicate, atmospheric wireframe
+          lineAlpha = 0.05 + frontRatio * 0.16;
+          lineWidth = 0.65;
+          ctx.strokeStyle = 'rgba(180, 205, 245, ' + lineAlpha.toFixed(3) + ')';
         }
+
+        ctx.lineWidth = lineWidth;
+        ctx.stroke();
       }
     }
 
-    for (let i = 0; i < projected.length; i += 3) {
-      const p = projected[i];
-      if (p.z > 0) {
-        ctx.fillStyle = '#ff5500';
+    // --- 3. RENDER LUMINOUS QUANTUM NODES & STARLIGHT PARTICLES ---
+    for (let p = 0; p < particles.length; p++) {
+      const pt = particles[p];
+
+      // Update position along strand
+      // Acceleration near waist (gravitational vortex lensing effect)
+      const distFromWaist = Math.abs(pt.u - 0.32);
+      const accel = 1 + (1 - Math.min(1, distFromWaist * 2.2)) * 0.65;
+      pt.u += pt.direction * pt.speed * accel;
+
+      // Wrap around seamlessly
+      if (pt.u > 1) pt.u = -1;
+      if (pt.u < -1) pt.u = 1;
+
+      // Calculate 3D position
+      const prof = getVortexProfile(pt.u);
+      const sign = pt.isCW ? 1 : -1;
+      const totalStrands = pt.isCW ? STRAND_COUNT_CW : STRAND_COUNT_CCW;
+      const baseAngle = (pt.strandIdx / totalStrands) * Math.PI * 2;
+      const twist = sign * TWIST_ANGLE * pt.u;
+      const undulation = Math.sin(pt.u * 2.8 + time * sign) * 0.05;
+      const theta = baseAngle + twist + undulation;
+
+      const x3d = prof.r * Math.cos(theta);
+      const y3d = prof.y;
+      const z3d = prof.r * Math.sin(theta);
+
+      const proj = project3D(x3d, y3d, z3d);
+
+      // Depth culling & fading
+      const depthAlpha = proj.inFront ? 1 : 0.32;
+      const pulse = 0.85 + 0.15 * Math.sin(time * 1.2 + pt.pulseOffset);
+      const particleRadius = pt.size * proj.scale * pulse;
+
+      // Render radiant starlight halo
+      const glowRadius = Math.max(9, particleRadius * 6.8);
+      const grad = ctx.createRadialGradient(proj.x, proj.y, 0, proj.x, proj.y, glowRadius);
+
+      if (pt.hueType === 'violet') {
+        grad.addColorStop(0, 'rgba(255, 255, 255, ' + (depthAlpha * 0.98).toFixed(2) + ')');
+        grad.addColorStop(0.25, 'rgba(220, 180, 255, ' + (depthAlpha * 0.82).toFixed(2) + ')');
+        grad.addColorStop(0.65, 'rgba(165, 110, 255, ' + (depthAlpha * 0.36).toFixed(2) + ')');
+        grad.addColorStop(1, 'rgba(140, 75, 255, 0)');
+      } else if (pt.hueType === 'amber') {
+        grad.addColorStop(0, 'rgba(255, 255, 255, ' + (depthAlpha * 0.98).toFixed(2) + ')');
+        grad.addColorStop(0.28, 'rgba(255, 180, 100, ' + (depthAlpha * 0.78).toFixed(2) + ')');
+        grad.addColorStop(0.68, 'rgba(235, 95, 20, ' + (depthAlpha * 0.34).toFixed(2) + ')');
+        grad.addColorStop(1, 'rgba(224, 70, 0, 0)');
+      } else {
+        grad.addColorStop(0, 'rgba(255, 255, 255, ' + (depthAlpha * 0.98).toFixed(2) + ')');
+        grad.addColorStop(0.3, 'rgba(240, 245, 255, ' + (depthAlpha * 0.82).toFixed(2) + ')');
+        grad.addColorStop(0.7, 'rgba(185, 210, 255, ' + (depthAlpha * 0.34).toFixed(2) + ')');
+        grad.addColorStop(1, 'rgba(150, 180, 255, 0)');
+      }
+
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(proj.x, proj.y, glowRadius, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Sharp pinpoint core
+      ctx.fillStyle = 'rgba(255, 255, 255, ' + depthAlpha.toFixed(2) + ')';
+      ctx.beginPath();
+      ctx.arc(proj.x, proj.y, Math.max(1.1, particleRadius * 0.78), 0, Math.PI * 2);
+      ctx.fill();
+
+      // Cinematic micro-sparkle cross for prominent particles in front
+      if (proj.inFront && pt.size > 2.3) {
+        ctx.strokeStyle = 'rgba(255, 255, 255, ' + (depthAlpha * 0.65).toFixed(2) + ')';
+        ctx.lineWidth = 0.8;
+        const flareLen = glowRadius * 0.95;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, Math.max(1, 2.2 * p.scale), 0, Math.PI * 2);
-        ctx.fill();
+        ctx.moveTo(proj.x - flareLen, proj.y);
+        ctx.lineTo(proj.x + flareLen, proj.y);
+        ctx.moveTo(proj.x, proj.y - flareLen);
+        ctx.lineTo(proj.x, proj.y + flareLen);
+        ctx.stroke();
       }
     }
 
@@ -431,6 +708,33 @@ function closeMobileMenu() {
 
 window.openMobileMenu = openMobileMenu;
 window.closeMobileMenu = closeMobileMenu;
+
+window.toggleMobileAccordion = function(headerBtn) {
+  const item = headerBtn.closest('.mobile-accordion-item');
+  if (!item) return;
+  const wasActive = item.classList.contains('active');
+  
+  const allItems = document.querySelectorAll('.mobile-accordion-item');
+  allItems.forEach(i => {
+    if (i !== item) i.classList.remove('active');
+  });
+
+  item.classList.toggle('active', !wasActive);
+};
+
+window.closeAnnouncementStrip = function() {
+  const strip = document.getElementById('topAnnouncementStrip') || document.querySelector('.top-announcement-strip');
+  if (strip) {
+    strip.style.transition = 'all 0.3s ease';
+    strip.style.opacity = '0';
+    strip.style.maxHeight = '0';
+    strip.style.padding = '0';
+    strip.style.overflow = 'hidden';
+    setTimeout(() => {
+      strip.style.display = 'none';
+    }, 320);
+  }
+};
 
 function toggleCertCatalogue() {
   const drawer = document.getElementById('certDrawerBody');
@@ -678,7 +982,7 @@ window.switchServiceCategory = function(cat) {
     }
   });
 
-  const cards = document.querySelectorAll('.service-item-card[data-service-group]');
+  const cards = document.querySelectorAll('.elevated-service-card[data-service-group], .service-item-card[data-service-group]');
   cards.forEach(card => {
     const group = card.getAttribute('data-service-group');
     if (cat === 'all' || group === cat) {
@@ -694,6 +998,18 @@ window.switchServiceCategory = function(cat) {
       card.style.display = 'none';
     }
   });
+
+  const track = document.getElementById('elevatedCarouselTrack');
+  if (track) {
+    track.scrollTo({ left: 0, behavior: 'smooth' });
+  }
+};
+
+window.slideCarousel = function(direction) {
+  const track = document.getElementById('elevatedCarouselTrack');
+  if (!track) return;
+  const cardWidth = 360;
+  track.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
 };
 
 /* ==========================================================================
@@ -1450,11 +1766,11 @@ function initServicesCascade() {
    ========================================================================== */
 
 /* ==========================================================================
-   FRAMER METHODOLOGY TIMELINE SCROLL ENGINE (MATCHING IMAGES 3 & 4)
+   FRAMER SERVICES / METHODOLOGY TIMELINE SCROLL ENGINE (MATCHING IMAGES 3 & 4)
    Dynamic progressive line filling and step highlighting on scroll up & down
    ========================================================================== */
 function initFramerMethodologyTimeline() {
-  const timeline = document.getElementById('methodologyTimeline');
+  const timeline = document.getElementById('servicesTimeline') || document.getElementById('methodologyTimeline');
   if (!timeline) return;
 
   const rows = timeline.querySelectorAll('.framer-step-row');
@@ -1550,19 +1866,26 @@ function initUniversalContactRedirects() {
     if (!link) return;
 
     const href = link.getAttribute('href') || '';
+
+    // Never intercept links intended for services or external sites
+    if (href.includes('services.html') || href.includes('service=') || href.startsWith('#services')) {
+      return;
+    }
+
+    const isContactPage = window.location.pathname.endsWith('contact.html') || window.location.href.includes('contact.html');
     const contactSec = document.getElementById('contact') || document.getElementById('katomContactForm');
 
-    // If contact target is on the current page
-    if (contactSec && (href === '#contact' || href === 'contact.html' || href === 'contact.html#contact' || href.endsWith('#contact') || link.classList.contains('btn-book-call'))) {
+    // If on the dedicated contact page itself and clicking a contact anchor/book-a-call
+    if (isContactPage && contactSec && (href === '#contact' || href === 'contact.html' || href === 'contact.html#contact' || href.endsWith('#contact') || link.classList.contains('btn-book-call'))) {
       e.preventDefault();
       contactSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
       if (history.pushState) {
         history.pushState(null, null, '#contact');
       }
-    } else if (!contactSec && (href === '#contact' || link.classList.contains('btn-book-call'))) {
-      // If contact section is not on current page, redirect to contact.html
+    } else if (!isContactPage && (href === '#contact' || (link.classList.contains('btn-book-call') && !href.includes('services')))) {
+      // If on another page and clicking an internal #contact link, navigate to contact.html
       e.preventDefault();
-      window.location.href = 'contact.html#contact';
+      window.location.href = 'contact.html';
     }
   });
 }

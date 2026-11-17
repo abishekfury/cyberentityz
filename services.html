@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services &amp; Practice Areas — CYBERENTITYZ™</title>
+  <meta name="description" content="Explore CYBERENTITYZ enterprise cybersecurity services, offensive penetration testing, corporate governance, and managed defense solutions.">
+  <link rel="icon" type="image/jpeg" href="images/logo.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Dedicated Services Page Styling matching nordconsulting.framer.website/services */
+    .services-page-body {
+      background: #fbfbfa;
+      color: #1c1c1c;
+      min-height: 100vh;
+    }
+
+    .services-hero-container {
+      padding: 1.5rem 0 3.5rem;
+    }
+
+    .services-dark-card {
+      background: #18181b;
+      color: #ffffff;
+      border-radius: 20px;
+      padding: 4.5rem 4rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+    }
+
+    .services-dark-card::after {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(255, 90, 31, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .services-kicker-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 3rem;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 1.2px;
+      color: #8c8c98;
+      text-transform: uppercase;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .services-display-title {
+      font-family: var(--font-sans);
+      font-size: clamp(2.8rem, 5.5vw, 5.2rem);
+      font-weight: 500;
+      line-height: 1.05;
+      letter-spacing: -2.5px;
+      color: #ffffff;
+      margin: 0 0 1.5rem;
+    }
+
+    .services-display-title .italic-serif-orange {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--color-orange);
+      display: block;
+      letter-spacing: -0.5px;
+    }
+
+    .services-lead-sub {
+      font-family: var(--font-sans);
+      font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+      line-height: 1.6;
+      color: #a0a0ab;
+      max-width: 680px;
+      margin: 0 0 2.5rem;
+    }
+
+    /* Practices Overview List (Matching Screenshot: nordconsulting.framer.website/services) */
+    .practices-list-wrap {
+      padding: 3rem 0 6rem;
+    }
+
+    .practice-row-item {
+      display: grid;
+      grid-template-columns: 80px 1.4fr 1.6fr 60px;
+      gap: 2.5rem;
+      align-items: center;
+      padding: 3.5rem 0;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s ease;
+      position: relative;
+    }
+
+    .practice-row-item:last-child {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .practice-row-item:hover {
+      background: rgba(224, 90, 0, 0.02);
+    }
+
+    .p-num-orange {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--red);
+      align-self: flex-start;
+      padding-top: 0.6rem;
+    }
+
+    .p-title-h2 {
+      font-family: var(--font-sans);
+      font-size: clamp(2.3rem, 4.2vw, 3.6rem);
+      font-weight: 500;
+      letter-spacing: -1.2px;
+      line-height: 1.12;
+      color: #18181b;
+      margin: 0;
+      transition: color 0.25s ease;
+    }
+
+    .practice-row-item:hover .p-title-h2 {
+      color: var(--red);
+    }
+
+    .p-right-col {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .p-desc-p {
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.65;
+      color: #52525b;
+      margin: 0 0 0.85rem;
+    }
+
+    .p-explore-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--red);
+      text-decoration: none;
+      transition: gap 0.2s ease;
+    }
+
+    .practice-row-item:hover .p-explore-link {
+      gap: 0.65rem;
+    }
+
+    .p-thumb-preview {
+      width: 150px;
+      height: 90px;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      flex-shrink: 0;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .p-circle-arrow {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      background: #ffffff;
+      color: #18181b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      justify-self: end;
+      flex-shrink: 0;
+    }
+
+    .practice-row-item:hover .p-circle-arrow,
+    .practice-row-item.active .p-circle-arrow {
+      background: var(--red);
+      color: #ffffff;
+      border-color: var(--red);
+      transform: rotate(45deg);
+      box-shadow: 0 6px 18px rgba(224, 90, 0, 0.35);
+    }
+/* Full 80 Services Catalogue Grid */
+    .catalogue-section {
+      padding: 6rem 0 8rem;
+    }
+
+    .catalogue-header-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 3.5rem;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .catalogue-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      width: 100%;
+      max-width: 640px;
+    }
+
+    .catalogue-search-input {
+      width: 100%;
+      padding: 1rem 1.4rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      background: #ffffff;
+      font-family: var(--font-sans);
+      font-size: 15px;
+      color: #1c1c1c;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .catalogue-search-input:focus {
+      outline: none;
+      border-color: var(--color-orange);
+      box-shadow: 0 0 0 3px rgba(255, 90, 31, 0.15);
+    }
+
+    .catalogue-domain-pills {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .domain-filter-btn {
+      background: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      color: #555562;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 0.55rem 1.25rem;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .domain-filter-btn.active,
+    .domain-filter-btn:hover {
+      background: #1c1c1c;
+      color: #ffffff;
+      border-color: #1c1c1c;
+    }
+
+    .services-grid-layout {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .service-catalogue-card {
+      background: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.3s var(--ease-nord), box-shadow 0.3s var(--ease-nord), border-color 0.3s var(--ease-nord);
+    }
+
+    .service-catalogue-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255, 90, 31, 0.4);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+    }
+
+    .card-meta-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+
+    .card-category-mono {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--color-orange);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .card-domain-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      background: #f4f3ee;
+      color: #72727e;
+      text-transform: uppercase;
+    }
+
+    .card-service-title {
+      font-family: var(--font-sans);
+      font-size: 1.45rem;
+      font-weight: 600;
+      color: #1c1c1c;
+      margin: 0 0 0.65rem;
+      letter-spacing: -0.4px;
+      transition: color 0.2s ease;
+    }
+
+    .service-catalogue-card:hover .card-service-title {
+      color: var(--color-orange);
+    }
+
+    .card-service-desc {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      line-height: 1.6;
+      color: #555562;
+      margin: 0 0 1.75rem;
+      flex-grow: 1;
+    }
+
+    .card-footer-cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.06);
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 600;
+      color: #1c1c1c;
+    }
+
+    .service-catalogue-card:hover .card-footer-cta {
+      color: var(--color-orange);
+    }
+
+    /* Single Service Detail View Container */
+    #singleServiceView {
+      display: none;
+    }
+
+    .detail-body-container {
+      padding: 4rem 0 8rem;
+    }
+
+    .detail-columns-grid {
+      display: grid;
+      grid-template-columns: 1.45fr 0.92fr;
+      gap: 4rem;
+      align-items: stretch !important;
+      position: relative;
+    }
+
+    .detail-main-content {
+      min-width: 0;
+    }
+
+    .sticky-consult-col {
+      position: relative;
+      height: 100%;
+    }
+
+    .threat-tag-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin: 1.5rem 0 3rem;
+    }
+
+    .threat-pill {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      background: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 0.45rem 0.95rem;
+      border-radius: 9999px;
+      color: #2a2a32;
+    }
+
+    .methodology-step-box {
+      background: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 12px;
+      padding: 1.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .m-step-kicker {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--color-orange);
+      margin-bottom: 0.35rem;
+      text-transform: uppercase;
+    }
+
+    .m-step-title {
+      font-family: var(--font-sans);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #1c1c1c;
+      margin: 0 0 0.5rem;
+    }
+
+    .m-step-desc {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      line-height: 1.6;
+      color: #555562;
+      margin: 0;
+    }
+
+    .sticky-consult-card {
+      background: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 18px;
+      padding: 2.75rem 2.25rem;
+      position: -webkit-sticky !important;
+      position: sticky !important;
+      top: 90px !important;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+      align-self: start !important;
+      z-index: 20;
+    }
+
+    @media (max-width: 1024px) {
+      .practice-row-item {
+        grid-template-columns: 50px 1fr 40px;
+      }
+      .practice-row-item .p-desc-p {
+        grid-column: 2 / -1;
+      }
+      .services-grid-layout {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .detail-columns-grid {
+        grid-template-columns: 1fr;
+      }
+      .sticky-consult-card {
+        position: relative;
+        top: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .services-dark-card {
+        padding: 2.75rem 1.75rem;
+      }
+      .practice-row-item {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .practice-row-item .p-circle-arrow {
+        justify-self: start;
+      }
+      .services-grid-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body class="services-page-body">
+
+  <!-- TOP ANNOUNCEMENT STRIP -->
+  <aside class="top-announcement-strip">
+    <div class="container announcement-center-wrap">
+      <span class="announcement-text-center">Welcome to International Biggest Cybersecurity and Ethical Hacking Security</span>
+    </div>
+  </aside>
+
+  <!-- NAVBAR -->
+  <header class="site-header-mega" id="siteHeader">
+    <div class="container nav-inner-wrap">
+      
+      <!-- Brand Logo (Official CYBERENTITYZ Logo) -->
+      <a href="index.html#hero" class="brand-monogram-box">
+        <img src="images/logo.jpeg" alt="CYBERENTITYZ Logo" class="brand-monogram-logo">
+        <div class="brand-titles">
+          <span class="brand-primary-name">CYBERENTITYZ<span class="sup-tm">™</span></span>
+        </div>
+      </a>
+
+      <nav class="mega-nav-list" id="megaNavList">
+        <a href="index.html#about" class="nav-simple-link">About</a>
+        <!-- SERVICES MEGA-MENU WITH AUTHENTIC CYBERENTITYZ OFFERINGS -->
+        <div class="nav-dropdown-item has-megamenu">
+          <button class="nav-trigger-btn" aria-expanded="false" onclick="toggleNavDropdown(this, event)">
+            <span>Services</span>
+            <svg class="chevron-svg" viewBox="0 0 10 6" fill="none" stroke="currentColor"><path d="M1 1l4 4 4-4" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <div class="megamenu-panel">
+            <div class="megamenu-grid-3">
+              <!-- DOMAIN 1: WORKSHOPS & ACADEMIC -->
+              <div class="megamenu-col">
+                <div class="megamenu-col-badge">TRAINING &amp; ACADEMIC</div>
+                <h4 class="megamenu-col-heading">Workshops &amp; Labs</h4>
+                <p class="megamenu-col-sub">Practical ethical hacking, industrial visits &amp; lab infrastructure</p>
+                <ul class="megamenu-links-list">
+                  <li><a href="services.html?service=cybersecurity-workshops">Cybersecurity Workshops</a></li>
+                  <li><a href="services.html?service=industrial-visits">Industrial Visits (IV)</a></li>
+                  <li><a href="services.html?service=internship-programs">Internship Programs</a></li>
+                  <li><a href="services.html?service=career-guidance-mock-interviews">Career Guidance &amp; Mocks</a></li>
+                  <li><a href="services.html?service=college-lab-setup-support">College Lab Setup Support</a></li>
+                  <li><a href="services.html?service=faculty-awareness-programs">Faculty Awareness Programs</a></li>
+                </ul>
+              </div>
+
+              <!-- DOMAIN 2: CORPORATE DEFENSE & VAPT -->
+              <div class="megamenu-col">
+                <div class="megamenu-col-badge">ENTERPRISE SECURITY</div>
+                <h4 class="megamenu-col-heading">Corporate Defense</h4>
+                <p class="megamenu-col-sub">Real-world attack simulations, VAPT &amp; executive advisory</p>
+                <ul class="megamenu-links-list">
+                  <li><a href="services.html?service=ethical-hacking-training">Ethical Hacking Society</a></li>
+                  <li><a href="services.html?service=vapt-services">VAPT &amp; Pen-Testing</a></li>
+                  <li><a href="services.html?service=vapt-services">Corporate Security Sessions</a></li>
+                  <li><a href="services.html?service=vciso-advisory">vCISO &amp; Governance</a></li>
+                  <li><a href="services.html?service=college-lab-setup-support">Collegiate Academic MOUs</a></li>
+                </ul>
+              </div>
+
+              <!-- DOMAIN 3: GLOBAL CERTIFICATIONS -->
+              <div class="megamenu-col">
+                <div class="megamenu-col-badge">GLOBAL CERTIFICATIONS</div>
+                <h4 class="megamenu-col-heading">Certification Training</h4>
+                <p class="megamenu-col-sub">Accredited bootcamps mapped to international standards</p>
+                <ul class="megamenu-links-list">
+                  <li><a href="index.html#certifications">CompTIA (Security+, CySA+, CASP+)</a></li>
+                  <li><a href="index.html#certifications">EC-Council (CEH, CPENT, CHFI)</a></li>
+                  <li><a href="index.html#certifications">OffSec (OSCP, OSEP, OSDA)</a></li>
+                  <li><a href="index.html#certifications">ISC² · ISACA (CISSP, CCSP, CISA)</a></li>
+                  <li><a href="index.html#certifications">Cisco CyberOps Associate</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Bottom Quick Bar -->
+            <div class="megamenu-bottom-bar">
+              <span class="megamenu-bottom-hint">Delivering world-class cybersecurity training and enterprise solutions from Chennai to the world.</span>
+              <a href="services.html" class="megamenu-bottom-btn">Explore All Services &amp; Practices ↗</a>
+            </div>
+          </div>
+        </div>
+        <a href="index.html#works" class="nav-simple-link">Works</a>
+        <a href="index.html#certifications" class="nav-simple-link">Certifications</a>
+        <a href="index.html#why" class="nav-simple-link">Why Us</a>
+        <a href="index.html#testimonials" class="nav-simple-link">Reviews</a>
+        <a href="index.html#trustedBy" class="nav-simple-link">Trusted By</a>
+        <a href="contact.html" class="nav-simple-link">Contact</a>
+      </nav>
+
+      <!-- Nav CTA Button matching screenshot (Orange Pill with Dark Arrow Circle) -->
+      <div class="nav-cta-actions">
+        <a href="index.html#contact" class="btn-book-call">
+          <span>Book a call</span>
+          <span class="pill-circle-dark">↗</span>
+        </a>
+        <button class="mobile-hamburger" id="mobileHamburger" aria-label="Toggle menu">
+          <span></span><span></span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <main>
+    
+    <!-- DYNAMIC HERO (NORD CONSULTING SCREENSHOT EXACT MATCH) -->
+    <section class="services-hero-container">
+      <div class="container">
+        <div class="services-dark-card" id="servicesHeroCard">
+          <div class="services-kicker-row">
+            <span id="heroTagLeft">( CYBERENTITYZ ) SERVICES</span>
+            <span id="heroTagRight">NINE PRACTICES · PARTNER-LED</span>
+          </div>
+
+          <h1 class="services-display-title" id="heroMainTitle">
+            Nine practices.
+            <span class="italic-serif-orange" id="heroTitleSub">One standard of defense.</span>
+          </h1>
+
+          <p class="services-lead-sub" id="heroLeadSub">
+            Every engagement is scoped around a verifiable security outcome you need to reach, never around automated checkbox hours or junior headcount.
+          </p>
+
+          <div id="heroCtaWrap">
+            <a href="index.html#contact" class="framer-morph-btn">
+              <span class="btn-morph-text">Schedule a scoping session</span>
+              <span class="btn-morph-icon">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DIRECTORY VIEW: SHOWN WHEN NO ?service= PARAM -->
+    <div id="fullCatalogueView">
+      
+      <!-- Practices List (Matching Screenshot: nordconsulting.framer.website/services) -->
+      <section class="practices-list-wrap">
+        <div class="container">
+          
+          <!-- Practice 01 -->
+          <a href="services.html?service=cybersecurity-workshops" class="practice-row-item">
+            <span class="p-num-orange">01</span>
+            <h2 class="p-title-h2">Cybersecurity Workshops</h2>
+            <div class="p-right-col">
+              <div>
+                <p class="p-desc-p">Engaging hands-on workshops covering ethical hacking, network security, web vulnerabilities, and real-time cyber threat demonstrations for students.</p>
+                <span class="p-explore-link">Explore practice →</span>
+              </div>
+            </div>
+            <span class="p-circle-arrow">↗</span>
+          </a>
+
+          <!-- Practice 02 (with photo preview matching screenshot) -->
+          <a href="services.html?service=industrial-visits" class="practice-row-item has-preview active">
+            <span class="p-num-orange">02</span>
+            <h2 class="p-title-h2">Industrial Visits (IV)</h2>
+            <div class="p-right-col">
+              <div>
+                <p class="p-desc-p">Immersive IV programs where students experience live cybersecurity environments, SOC operations, and enterprise security infrastructure.</p>
+                <span class="p-explore-link">Explore practice →</span>
+              </div>
+              <img src="images/cyber-operations-lab.jpg" alt="Cybersecurity Lab & SOC Operations" class="p-thumb-preview">
+            </div>
+            <span class="p-circle-arrow">↗</span>
+          </a>
+
+          <!-- Practice 03 -->
+          <a href="services.html?service=internship-programs" class="practice-row-item">
+            <span class="p-num-orange">03</span>
+            <h2 class="p-title-h2">Internship Programs</h2>
+            <div class="p-right-col">
+              <div>
+                <p class="p-desc-p">Structured internship opportunities in ethical hacking, digital forensics, and security operations — building real industry experience.</p>
+                <span class="p-explore-link">Explore practice →</span>
+              </div>
+            </div>
+            <span class="p-circle-arrow">↗</span>
+          </a>
+
+          <!-- Practice 04 -->
+          <a href="services.html?service=career-guidance-mock-interviews" class="practice-row-item">
+            <span class="p-num-orange">04</span>
+            <h2 class="p-title-h2">Career Guidance &amp; Mock Interviews</h2>
+            <div class="p-right-col">
+              <div>
+                <p class="p-desc-p">Resume preparation with ATS optimization, career path planning, global job placement guidance, and mock technical interviews.</p>
+                <span class="p-explore-link">Explore practice →</span>
+              </div>
+            </div>
+            <span class="p-circle-arrow">↗</span>
+          </a>
+
+          <!-- Practice 05 -->
+          <a href="services.html?service=college-lab-setup-support" class="practice-row-item">
+            <span class="p-num-orange">05</span>
+            <h2 class="p-title-h2">College Lab Setup Support</h2>
+            <div class="p-right-col">
+              <div>
+                <p class="p-desc-p">Complete support for establishing cybersecurity labs — hardware, software, network architecture design, and ongoing technical consultation.</p>
+                <span class="p-explore-link">Explore practice →</span>
+              </div>
+            </div>
+            <span class="p-circle-arrow">↗</span>
+          </a>
+
+          <!-- Practice 06 -->
+          <a href="services.html?service=faculty-awareness-programs" class="practice-row-item">
+            <span class="p-num-orange">06</span>
+            <h2 class="p-title-h2">Faculty Awareness Programs</h2>
+            <div class="p-right-col">
+              <div>
+                <p class="p-desc-p">Cybersecurity awareness and upskilling programs tailored for faculty members to stay current with evolving threats and technologies.</p>
+                <span class="p-explore-link">Explore practice →</span>
+              </div>
+            </div>
+            <span class="p-circle-arrow">↗</span>
+          </a>
+
+          <!-- Practice 07 -->
+          <a href="services.html?service=ethical-hacking-training" class="practice-row-item">
+            <span class="p-num-orange">07</span>
+            <h2 class="p-title-h2">Ethical Hacking Training</h2>
+            <div class="p-right-col">
+              <div>
+                <p class="p-desc-p">Offensive and defensive security bootcamps, attack simulations, hands-on lab environments, and global certification preparation.</p>
+                <span class="p-explore-link">Explore practice →</span>
+              </div>
+            </div>
+            <span class="p-circle-arrow">↗</span>
+          </a>
+
+          <!-- Practice 08 -->
+          <a href="services.html?service=vapt-services" class="practice-row-item">
+            <span class="p-num-orange">08</span>
+            <h2 class="p-title-h2">VAPT Services &amp; Corporate Security</h2>
+            <div class="p-right-col">
+              <div>
+                <p class="p-desc-p">Vulnerability assessment, penetration testing across web and enterprise IT, and employee cybersecurity awareness sessions.</p>
+                <span class="p-explore-link">Explore practice →</span>
+              </div>
+            </div>
+            <span class="p-circle-arrow">↗</span>
+          </a>
+
+          <!-- Practice 09 -->
+          <a href="services.html?service=vciso-advisory" class="practice-row-item">
+            <span class="p-num-orange">09</span>
+            <h2 class="p-title-h2">vCISO Advisory &amp; Governance</h2>
+            <div class="p-right-col">
+              <div>
+                <p class="p-desc-p">Strategic executive cybersecurity leadership, compliance frameworks (ISO 27001, SOC 2), and institutional academic MOUs.</p>
+                <span class="p-explore-link">Explore practice →</span>
+              </div>
+            </div>
+            <span class="p-circle-arrow">↗</span>
+          </a>
+
+        </div>
+      </section>
+
+    </div>
+
+    <!-- SINGLE SERVICE DETAIL VIEW: SHOWN WHEN ?service=slug IS PRESENT -->
+    <div id="singleServiceView">
+      <section class="detail-body-container">
+        <div class="container detail-columns-grid">
+          
+          <!-- Left Article -->
+          <div class="detail-main-content">
+            <div style="margin-bottom:2rem;">
+              <a href="services.html" class="btn-tier-outline" style="display:inline-flex; width:auto; padding:0.5rem 1.25rem;">
+                <span>← Back to all practices</span>
+              </a>
+            </div>
+
+            <div class="section-tag-row">
+              <span class="section-num-tag">(01)</span>
+              <span class="tag-title" id="detailCatTag">Service Scope</span>
+            </div>
+            <h2 class="section-main-heading" style="color:#1c1c1c;" id="detailSubheading">Comprehensive Adversary Defense</h2>
+            
+            <div id="detailOverviewHtml" style="font-size:1.05rem; line-height:1.75; color:#4a4a54; margin-bottom:3rem;"></div>
+
+            <!-- Threats Addressed -->
+            <div class="section-tag-row">
+              <span class="section-num-tag">(02)</span>
+              <span class="tag-title">Threat Intelligence</span>
+            </div>
+            <h3 style="font-size:1.5rem; font-weight:600; color:#1c1c1c; margin-bottom:1rem;">Target Vectors &amp; Threat Scenarios Neutralized</h3>
+            <div class="threat-tag-cloud" id="detailThreatsCloud"></div>
+
+            <!-- 5 Phase Methodology -->
+            <div class="section-tag-row">
+              <span class="section-num-tag">(03)</span>
+              <span class="tag-title">Engagement Methodology</span>
+            </div>
+            <h3 style="font-size:1.5rem; font-weight:600; color:#1c1c1c; margin-bottom:1.5rem;">5-Phase Execution &amp; Verification Roadmap</h3>
+            <div id="detailMethodologyList"></div>
+
+            <!-- Deliverables & Benefits -->
+            <div class="section-tag-row" style="margin-top:3rem;">
+              <span class="section-num-tag">(04)</span>
+              <span class="tag-title">Client Deliverables</span>
+            </div>
+            <h3 style="font-size:1.5rem; font-weight:600; color:#1c1c1c; margin-bottom:1.5rem;">Formal Artifacts &amp; Actionable Playbooks</h3>
+            <div id="detailDeliverablesList"></div>
+
+            <div id="detailBenefitsWrap" style="display:none; margin-top:3rem;">
+              <div class="section-tag-row">
+                <span class="section-num-tag">(05)</span>
+                <span class="tag-title">Why This Engagement</span>
+              </div>
+              <h3 style="font-size:1.5rem; font-weight:600; color:#1c1c1c; margin-bottom:1rem;">Key Benefits</h3>
+              <div id="detailBenefitsList"></div>
+            </div>
+
+            <div id="detailStandardsWrap" style="display:none; margin-top:3rem;">
+              <div class="section-tag-row">
+                <span class="section-num-tag">(06)</span>
+                <span class="tag-title">Compliance Alignment</span>
+              </div>
+              <h3 style="font-size:1.5rem; font-weight:600; color:#1c1c1c; margin-bottom:1rem;">Standards &amp; Frameworks Covered</h3>
+              <div class="threat-tag-cloud" id="detailStandardsList"></div>
+            </div>
+
+            <div id="detailFaqWrap" style="display:none; margin-top:3rem;">
+              <div class="section-tag-row">
+                <span class="section-num-tag">(07)</span>
+                <span class="tag-title">FAQ</span>
+              </div>
+              <h3 style="font-size:1.5rem; font-weight:600; color:#1c1c1c; margin-bottom:1rem;">Frequently Asked Questions</h3>
+              <div id="detailFaqList"></div>
+            </div>
+          </div>
+
+          <!-- Right Sticky Booking Card -->
+          <div class="sticky-consult-col">
+            <div class="sticky-consult-card">
+              <span class="badge-most-chosen" style="margin-bottom:1.25rem; display:inline-block;">DIRECT CONSULTATION</span>
+              <h3 style="font-size:1.6rem; font-weight:600; color:#1c1c1c; margin:0 0 0.5rem;" id="cardServiceTitle">Web Application VAPT</h3>
+              <p style="font-size:14px; color:#6a6a74; margin:0 0 2rem;">A partner reviews your scope and responds within one business day.</p>
+
+              <form onsubmit="event.preventDefault(); alert('Consultation request received for ' + document.getElementById('cardServiceTitle').textContent + '. A senior advisor will contact you within 24 hours.');">
+                <div style="display:flex; flex-direction:column; gap:1.2rem;">
+                  <div>
+                    <label style="font-family:var(--font-mono); font-size:11px; text-transform:uppercase; color:#6a6a74; font-weight:600; display:block; margin-bottom:0.35rem;">Full Name *</label>
+                    <input type="text" required placeholder="Jane Smith" style="width:100%; padding:0.8rem 1rem; border-radius:8px; border:1px solid #dcdbd5; font-size:14px;">
+                  </div>
+
+                  <div>
+                    <label style="font-family:var(--font-mono); font-size:11px; text-transform:uppercase; color:#6a6a74; font-weight:600; display:block; margin-bottom:0.35rem;">Work Email *</label>
+                    <input type="email" required placeholder="jane@company.com" style="width:100%; padding:0.8rem 1rem; border-radius:8px; border:1px solid #dcdbd5; font-size:14px;">
+                  </div>
+
+                  <div>
+                    <label style="font-family:var(--font-mono); font-size:11px; text-transform:uppercase; color:#6a6a74; font-weight:600; display:block; margin-bottom:0.35rem;">Phone / WhatsApp *</label>
+                    <input type="tel" required placeholder="+91 95000 00000" style="width:100%; padding:0.8rem 1rem; border-radius:8px; border:1px solid #dcdbd5; font-size:14px;">
+                  </div>
+
+                  <div>
+                    <label style="font-family:var(--font-mono); font-size:11px; text-transform:uppercase; color:#6a6a74; font-weight:600; display:block; margin-bottom:0.35rem;">Target Assets / Scope</label>
+                    <textarea rows="3" placeholder="Target URLs, IPs, cloud frameworks, or expected audit timeline..." style="width:100%; padding:0.8rem 1rem; border-radius:8px; border:1px solid #dcdbd5; font-size:14px;"></textarea>
+                  </div>
+
+                  <p style="font-size:12px; color:#7a7a85; margin:0;">We never share your information. Mutual NDA executed on request.</p>
+
+                  <button type="submit" class="btn-consult-submit">
+                    <span>Dispatch Scoping Request</span>
+                    <span class="circle-arrow-white">↗</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- DOTMARK INTERACTIVE HALFTONE FOOTER (MATCHING SCREENSHOT 1 - DOTMARK.FRAMER.WEBSITE) -->
+  <footer class="dotmark-footer-wrap">
+    <div class="dotmark-footer-shader-glow"></div>
+    <div class="container">
+      
+      <!-- Top Navigation Row -->
+      <div class="dotmark-top-nav-row">
+        <div class="dotmark-nav-main-col">
+          <a href="index.html#about">About</a>
+          <a href="services.html">Services</a>
+          <a href="index.html#works">Works</a>
+          <a href="contact.html">Contact</a>
+        </div>
+
+        <div class="dotmark-nav-side-cols">
+          <div class="dotmark-sub-col">
+            <span class="dotmark-col-title">Practices</span>
+            <a href="services.html?service=web-application-vapt">Offensive VAPT</a>
+            <a href="services.html?service=iso-27001">ISO 27001 GRC</a>
+            <a href="services.html?service=soc-as-a-service">MSSP &amp; SOC</a>
+            <a href="index.html#certifications">Global Certifications</a>
+          </div>
+
+          <div class="dotmark-sub-col">
+            <span class="dotmark-col-title">Academics</span>
+            <a href="index.html#about">College MOUs</a>
+            <a href="index.html#about">Industrial Visits (IV)</a>
+            <a href="index.html#about">Lab Setup Support</a>
+            <a href="index.html#about">Faculty Training</a>
+          </div>
+
+          <div class="dotmark-sub-col">
+            <span class="dotmark-col-title">Connect</span>
+            <a href="tel:+919500551090">+91 9500551090</a>
+            <a href="mailto:info@cyberentityz.com">info@cyberentityz.com</a>
+            <a href="contact.html">Incident Hotline</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Meta Strip -->
+      <div class="dotmark-meta-strip">
+        <span>© 2026 CYBERENTITYZ™ — Ethical Hacking Society. Chennai · Tamil Nadu</span>
+        <button class="dotmark-back-top-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+          Back to top ↑
+        </button>
+      </div>
+
+      <!-- Halftone Interactive Dot Canvas for CYBERENTITYZ -->
+      <div class="dotmark-canvas-container" title="Move your cursor to interact with the CYBERENTITYZ halftone matrix">
+        <canvas id="dotmarkFooterCanvas"></canvas>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="services-data.js"></script>
+  <script>
+    function loadServiceFromUrl() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const serviceSlug = urlParams.get('service');
+
+      if (serviceSlug && typeof SERVICES_DATA !== 'undefined') {
+        const found = (typeof getServiceById === 'function' ? getServiceById(serviceSlug) : null) || 
+                      SERVICES_DATA.find(s => s.id === serviceSlug || s.id.toLowerCase() === serviceSlug.toLowerCase());
+        if (found) {
+          renderSingleService(found);
+          return;
+        }
+      }
+
+      // Default: render the full catalogue
+      renderCatalogue();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadServiceFromUrl();
+
+      // Intercept service links on the current page for instantaneous SPA transition
+      document.body.addEventListener('click', (e) => {
+        const link = e.target.closest('a[href*="service="]');
+        if (link && link.pathname.endsWith('services.html')) {
+          e.preventDefault();
+          const targetUrl = new URL(link.href, window.location.origin);
+          const slug = targetUrl.searchParams.get('service');
+          if (slug && typeof SERVICES_DATA !== 'undefined') {
+            const found = SERVICES_DATA.find(s => s.id === slug || s.id.toLowerCase() === slug.toLowerCase());
+            if (found) {
+              history.pushState({ service: slug }, '', link.href);
+              renderSingleService(found);
+              // Close any open mega-menus
+              document.querySelectorAll('.has-megamenu').forEach(item => item.classList.remove('open'));
+            }
+          }
+        }
+      });
+    });
+
+    window.addEventListener('popstate', () => {
+      loadServiceFromUrl();
+    });
+
+    function renderCatalogue(filterDomain = 'all', searchQuery = '') {
+      document.getElementById('fullCatalogueView').style.display = 'block';
+      document.getElementById('singleServiceView').style.display = 'none';
+
+      const grid = document.getElementById('servicesGrid');
+      if (!grid || typeof SERVICES_DATA === 'undefined') return;
+
+      const q = searchQuery.toLowerCase().trim();
+      const filtered = SERVICES_DATA.filter(s => {
+        const matchDomain = filterDomain === 'all' || s.domain.toLowerCase() === filterDomain.toLowerCase();
+        const matchSearch = !q || s.title.toLowerCase().includes(q) || s.category.toLowerCase().includes(q) || s.overview.toLowerCase().includes(q);
+        return matchDomain && matchSearch;
+      });
+
+      grid.innerHTML = filtered.map(s => `
+        <a href="services.html?service=${s.id}" class="service-catalogue-card">
+          <div class="card-meta-bar">
+            <span class="card-category-mono">${s.category}</span>
+            <span class="card-domain-tag">${s.domain}</span>
+          </div>
+          <h3 class="card-service-title">${s.title}</h3>
+          <p class="card-service-desc">${s.tagline || (s.overview.substring(0, 110) + '...')}</p>
+          <div class="card-footer-cta">
+            <span>Explore Technical Scope</span>
+            <span style="font-weight:700;">↗</span>
+          </div>
+        </a>
+      `).join('');
+    }
+
+    function renderSingleService(service) {
+      document.getElementById('fullCatalogueView').style.display = 'none';
+      document.getElementById('singleServiceView').style.display = 'block';
+
+      // Update Hero
+      document.getElementById('heroTagLeft').textContent = `( ${service.domain.toUpperCase()} DOMAIN ) ${service.category}`;
+      document.getElementById('heroTagRight').textContent = `CREST & OWASP ALIGNED`;
+      document.getElementById('heroMainTitle').innerHTML = `${service.title} <span class="italic-serif-orange">${service.tagline}</span>`;
+      document.getElementById('heroLeadSub').textContent = service.overview.split('\n\n')[0];
+      document.getElementById('cardServiceTitle').textContent = service.title;
+      document.getElementById('detailSubheading').textContent = service.title + ' — Technical Specifications';
+
+      // Overview
+      const pGraph = service.overview.split('\n\n').map(p => `<p style="margin-bottom:1.25rem;">${p}</p>`).join('');
+      document.getElementById('detailOverviewHtml').innerHTML = pGraph;
+
+      // Threats
+      const threatsBox = document.getElementById('detailThreatsCloud');
+      if (service.threats) {
+        threatsBox.innerHTML = service.threats.map(t => `<span class="threat-pill">■ ${t}</span>`).join('');
+      }
+
+      // Methodology
+      const methBox = document.getElementById('detailMethodologyList');
+      if (service.methodology) {
+        methBox.innerHTML = service.methodology.map((m, idx) => `
+          <div class="methodology-step-box">
+            <div class="m-step-kicker">PHASE 0${idx + 1}</div>
+            <h4 class="m-step-title">${m.phase}</h4>
+            <p class="m-step-desc">${m.desc}</p>
+          </div>
+        `).join('');
+      }
+
+      // Deliverables
+      const delivBox = document.getElementById('detailDeliverablesList');
+      if (service.deliverables) {
+        delivBox.innerHTML = service.deliverables.map(d => `
+          <div style="background:#ffffff; border:1px solid rgba(0,0,0,0.08); border-radius:8px; padding:1rem 1.25rem; margin-bottom:0.75rem; display:flex; align-items:center; gap:0.75rem;">
+            <span style="color:var(--color-orange); font-weight:700;">✓</span>
+            <span style="font-size:14.5px; color:#1c1c1c;">${d}</span>
+          </div>
+        `).join('');
+      }
+
+      const faqs = service.faqs || (['Assurance', 'Governance', 'MSSP'].includes(service.domain) ? [
+        { q: 'How long does the engagement take?', a: 'It depends on scope and size. We give a firm timeline after the scoping call, typically from a few days to a few weeks.' },
+        { q: 'Will testing affect our production systems?', a: 'Testing is planned to be non-disruptive. We agree on rules of engagement, windows and escalation contacts beforehand, and can test staging environments if you prefer.' },
+        { q: 'Do you provide a re-test after fixes?', a: 'Yes. We verify remediation and update the report to show which findings are closed.' },
+        { q: 'What do we receive at the end?', a: 'An executive summary, a detailed technical report with evidence and fix guidance, and a re-test report.' }
+      ] : null);
+
+      const fill = (wrapId, listId, items, html) => {
+        const wrap = document.getElementById(wrapId);
+        const has = items && items.length;
+        wrap.style.display = has ? 'block' : 'none';
+        document.getElementById(listId).innerHTML = has ? items.map(html).join('') : '';
+      };
+      fill('detailBenefitsWrap', 'detailBenefitsList', service.benefits, b => `
+        <div style="background:#ffffff; border:1px solid rgba(0,0,0,0.08); border-radius:8px; padding:1rem 1.25rem; margin-bottom:0.75rem; display:flex; align-items:center; gap:0.75rem;">
+          <span style="color:var(--color-orange); font-weight:700;">✓</span>
+          <span style="font-size:14.5px; color:#1c1c1c;">${b}</span>
+        </div>`);
+      fill('detailStandardsWrap', 'detailStandardsList', service.standards, s => `<span class="threat-pill">${s}</span>`);
+      fill('detailFaqWrap', 'detailFaqList', faqs, f => `
+        <details style="background:#ffffff; border:1px solid rgba(0,0,0,0.08); border-radius:8px; padding:1rem 1.25rem; margin-bottom:0.75rem;">
+          <summary style="cursor:pointer; font-weight:600; color:#1c1c1c;">${f.q}</summary>
+          <p style="margin:0.75rem 0 0; color:#4a4a54; line-height:1.65;">${f.a}</p>
+        </details>`);
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Filter by domain button clicks
+    document.querySelectorAll('.domain-filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.domain-filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.getAttribute('data-filter');
+        const searchVal = document.getElementById('catalogueSearch').value;
+        renderCatalogue(filter, searchVal);
+      });
+    });
+
+    // Search input
+    const searchInp = document.getElementById('catalogueSearch');
+    if (searchInp) {
+      searchInp.addEventListener('input', (e) => {
+        const activeBtn = document.querySelector('.domain-filter-btn.active');
+        const filter = activeBtn ? activeBtn.getAttribute('data-filter') : 'all';
+        renderCatalogue(filter, e.target.value);
+      });
+    }
+
+    window.filterByDomain = function(domain) {
+      document.querySelectorAll('.domain-filter-btn').forEach(b => {
+        if (b.getAttribute('data-filter') === domain) b.classList.add('active');
+        else b.classList.remove('active');
+      });
+      renderCatalogue(domain, '');
+    };
+  </script>
+</body>
+</html>

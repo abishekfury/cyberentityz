@@ -16,9 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
   initParallax();
   initDotmarkFooter();
   initAlloyAccordion();
+  initMegaNavHover();
   initCountUpAnimations();
   initCyberGlobe();
-  initServicesCascade();
+  initFramerMethodologyTimeline();
 });
 
 /* ==========================================================================
@@ -398,9 +399,9 @@ function initStickyHeader() {
 
   window.addEventListener('scroll', () => {
     if (window.scrollY > 40) {
-      header.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.4)';
+      header.classList.add('scrolled');
     } else {
-      header.style.boxShadow = 'none';
+      header.classList.remove('scrolled');
     }
   });
 }
@@ -408,17 +409,68 @@ function initStickyHeader() {
 /* ==========================================================================
    8. MOBILE NAVIGATION
    ========================================================================== */
+function openMobileMenu() {
+  const card = document.getElementById('mobileMenuCard');
+  const backdrop = document.getElementById('mobileMenuBackdrop');
+  if (card && backdrop) {
+    card.classList.add('active');
+    backdrop.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeMobileMenu() {
+  const card = document.getElementById('mobileMenuCard');
+  const backdrop = document.getElementById('mobileMenuBackdrop');
+  if (card && backdrop) {
+    card.classList.remove('active');
+    backdrop.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
+
+window.openMobileMenu = openMobileMenu;
+window.closeMobileMenu = closeMobileMenu;
+
+function toggleCertCatalogue() {
+  const drawer = document.getElementById('certDrawerBody');
+  const btn = document.getElementById('toggleCertCatalogueBtn');
+  if (!drawer || !btn) return;
+  const isOpen = drawer.classList.toggle('open');
+  btn.classList.toggle('active', isOpen);
+  const textSpan = btn.querySelector('span');
+  if (textSpan) {
+    textSpan.textContent = isOpen 
+      ? 'Collapse Full 23-Certification Catalogue' 
+      : 'Browse Full 23-Certification Syllabus & Body Directory';
+  }
+}
+window.toggleCertCatalogue = toggleCertCatalogue;
+
 function initMobileNav() {
   const btn = document.getElementById('mobileHamburger');
-  const links = document.getElementById('megaNavList');
-  if (!btn || !links) return;
+  if (btn) {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openMobileMenu();
+    });
+  }
 
-  btn.addEventListener('click', () => {
-    links.classList.toggle('mobile-open');
-  });
+  const closeBtn = document.getElementById('mobileMenuClose');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeMobileMenu();
+    });
+  }
 
-  links.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => links.classList.remove('mobile-open'));
+  const backdrop = document.getElementById('mobileMenuBackdrop');
+  if (backdrop) {
+    backdrop.addEventListener('click', closeMobileMenu);
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMobileMenu();
   });
 }
 
@@ -493,10 +545,19 @@ window.activateProcessStep = function(index) {
 };
 
 function initScrollReveal() {
-  const targets = document.querySelectorAll(".reveal-on-scroll, .reveal-blur-text, .section-main-heading, .featured-case-card, .service-item-card, .faq-item, .contact-card-box, .cert-box-card, .review-item-card");
+  const targets = document.querySelectorAll(
+    ".reveal-on-scroll, .reveal-blur-text, .section-main-heading, .section-tag-row, " +
+    ".methodology-header, .methodology-title, .methodology-kicker, " +
+    ".cert-bento-card, .featured-case-card, .service-item-card, .faq-item, " +
+    ".contact-card-box, .cert-box-card, .review-item-card, .trustwall-header, " +
+    ".work-header-p, .faq-header-p, .lead-p, .framer-hero-lead, .alloy-panel-header"
+  );
   
+  const directionalTargets = document.querySelectorAll('.slide-left-reveal, .slide-right-reveal');
+
   if (!("IntersectionObserver" in window)) {
     targets.forEach(el => el.classList.add("is-revealed"));
+    directionalTargets.forEach(el => el.classList.add("is-revealed"));
     return;
   }
 
@@ -508,12 +569,17 @@ function initScrollReveal() {
       }
     });
   }, {
-    threshold: 0,
-    rootMargin: "0px 0px -20px 0px"
+    threshold: 0.05,
+    rootMargin: "0px 0px -30px 0px"
   });
 
-  targets.forEach(el => {
+  targets.forEach((el, index) => {
     el.classList.add("reveal-blur-text");
+    el.style.setProperty("--reveal-index", (index % 6));
+    observer.observe(el);
+  });
+
+  directionalTargets.forEach(el => {
     observer.observe(el);
   });
 }
@@ -615,12 +681,12 @@ window.switchServiceCategory = function(cat) {
   const cards = document.querySelectorAll('.service-item-card[data-service-group]');
   cards.forEach(card => {
     const group = card.getAttribute('data-service-group');
-    if (group === cat) {
+    if (cat === 'all' || group === cat) {
       card.style.display = 'flex';
       card.style.opacity = '0';
-      card.style.transform = 'translateY(10px)';
+      card.style.transform = 'translateY(8px)';
       requestAnimationFrame(() => {
-        card.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+        card.style.transition = 'opacity 0.28s ease, transform 0.28s ease';
         card.style.opacity = '1';
         card.style.transform = 'translateY(0)';
       });
@@ -731,11 +797,11 @@ function initDotmarkFooter() {
     if (fontSize > 180) fontSize = 180;
     if (fontSize < 48) fontSize = 48;
 
-    offCtx.font = `900 ${fontSize}px "Instrument Sans", -apple-system, BlinkMacSystemFont, sans-serif`;
+    offCtx.font = `700 ${fontSize}px "Instrument Sans", -apple-system, BlinkMacSystemFont, sans-serif`;
     offCtx.fillStyle = '#ffffff';
     offCtx.textAlign = 'center';
     offCtx.textBaseline = 'middle';
-    offCtx.letterSpacing = '-0.03em';
+    offCtx.letterSpacing = '-0.02em';
     offCtx.fillText(text, width / 2, height / 2);
 
     // Sample pixel grid
@@ -743,15 +809,15 @@ function initDotmarkFooter() {
     particles = [];
 
     // Adaptive step based on viewport width
-    const step = width < 768 ? 5 : 7;
-    const baseRadius = width < 768 ? 2.0 : 2.8;
+    const step = width < 768 ? 6 : 7;
+    const baseRadius = width < 768 ? 2.0 : 2.7;
 
     for (let y = 0; y < height; y += step) {
       for (let x = 0; x < width; x += step) {
         const index = (y * width + x) * 4;
         const brightness = imgData[index]; // White text = 255
 
-        if (brightness > 120) {
+        if (brightness > 45) {
           const norm = brightness / 255;
           particles.push({
             x: x,
@@ -760,7 +826,7 @@ function initDotmarkFooter() {
             oy: y,
             vx: 0,
             vy: 0,
-            radius: baseRadius * norm,
+            radius: Math.max(1, baseRadius * norm),
             color: '#ECE8DF',
             waveOffset: Math.random() * Math.PI * 2
           });
@@ -770,6 +836,12 @@ function initDotmarkFooter() {
   }
 
   sampleWordmark();
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => {
+      sampleWordmark();
+    });
+  }
 
   let resizeTimer;
   window.addEventListener('resize', () => {
@@ -874,11 +946,61 @@ function initDotmarkFooter() {
 }
 
 /* ==========================================================================
-   14. NUMBER COUNT-UP ANIMATION (0 TO TARGET ANIMATION FOR ALL METRICS)
+   MEGA-MENU SMOOTH HOVER & BRIDGE CONTROLLER
+   Prevents options box from clearing when moving between menu items or down into the panel
+   ========================================================================== */
+function initMegaNavHover() {
+  const items = document.querySelectorAll('.has-megamenu');
+  if (!items.length) return;
+
+  let closeTimer = null;
+
+  items.forEach(item => {
+    item.addEventListener('mouseenter', () => {
+      clearTimeout(closeTimer);
+      // Switch active dropdown immediately without closing
+      items.forEach(other => {
+        if (other !== item) {
+          other.classList.remove('open');
+          const btn = other.querySelector('.nav-trigger-btn');
+          if (btn) btn.setAttribute('aria-expanded', 'false');
+        }
+      });
+      item.classList.add('open');
+      const btn = item.querySelector('.nav-trigger-btn');
+      if (btn) btn.setAttribute('aria-expanded', 'true');
+    });
+
+    item.addEventListener('mouseleave', () => {
+      closeTimer = setTimeout(() => {
+        item.classList.remove('open');
+        const btn = item.querySelector('.nav-trigger-btn');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      }, 160);
+    });
+  });
+
+  const header = document.querySelector('.site-header-mega');
+  if (header) {
+    header.addEventListener('mouseleave', () => {
+      closeTimer = setTimeout(() => {
+        items.forEach(item => {
+          item.classList.remove('open');
+          const btn = item.querySelector('.nav-trigger-btn');
+          if (btn) btn.setAttribute('aria-expanded', 'false');
+        });
+      }, 180);
+    });
+  }
+}
+
+/* ==========================================================================
+   14. NUMBER COUNT-UP ANIMATION (RE-ANIMATES ON SCROLL UP AND SCROLL DOWN)
    ========================================================================== */
 function initCountUpAnimations() {
+  // NOTE: .progress-big-num is excluded to prevent 01, 02, 03 milestone cards from altering order
   const statElements = document.querySelectorAll(
-    ".framer-stat-num, .bento-stat-num, .trustwall-card-stat-num, .metric-val, .progress-big-num, [data-count]"
+    ".framer-stat-num, .bento-stat-num, .trustwall-card-stat-num, .metric-val, [data-count]"
   );
   if (!statElements.length) return;
 
@@ -888,29 +1010,72 @@ function initCountUpAnimations() {
     }
   });
 
+  function animateValue(el) {
+    const rawText = el.dataset.targetVal || el.textContent.trim();
+    const match = rawText.match(/^([^\d.]*)(\d+(?:\.\d+)?)(.*)$/);
+    if (!match) return;
+
+    const prefix = match[1] || "";
+    const target = parseFloat(match[2]);
+    const suffix = match[3] || "";
+    const isDecimal = match[2].includes(".");
+    const duration = 1600;
+    const startTime = performance.now();
+
+    el.dataset.animating = "true";
+    el.textContent = prefix + "0" + suffix;
+
+    function update(now) {
+      const elapsed = now - startTime;
+      const progress = Math.max(0, Math.min(1, elapsed / duration));
+      const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      const current = target * ease;
+
+      el.textContent = prefix + (isDecimal ? current.toFixed(1) : Math.floor(current)) + suffix;
+
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        el.textContent = rawText;
+        el.dataset.animating = "false";
+      }
+    }
+
+    requestAnimationFrame(update);
+  }
+
   function startCountUpObserver() {
-    const observer = new IntersectionObserver((entries, obs) => {
+    // Threshold triggers when element enters viewport (scrolling up or down)
+    const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting && !entry.target.dataset.counted) {
-          entry.target.dataset.counted = "true";
-          animateValue(entry.target);
-          obs.unobserve(entry.target);
+        if (entry.isIntersecting) {
+          // Animate on enter (scroll down or scroll up)
+          if (entry.target.dataset.animating !== "true") {
+            animateValue(entry.target);
+          }
+        } else {
+          // Reset to 0 when leaving viewport so it counts up again when re-entering
+          entry.target.dataset.animating = "false";
+          const raw = entry.target.dataset.targetVal;
+          if (raw) {
+            const match = raw.match(/^([^\d.]*)(\d+(?:\.\d+)?)(.*)$/);
+            if (match) {
+              entry.target.textContent = (match[1] || '') + '0' + (match[3] || '');
+            }
+          }
         }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.15 });
 
     statElements.forEach(el => observer.observe(el));
 
     // Also immediately trigger hero stats when preloader ends
     document.querySelectorAll(".framer-stat-num").forEach(el => {
-      if (!el.dataset.counted) {
-        el.dataset.counted = "true";
-        animateValue(el);
-      }
+      animateValue(el);
     });
   }
 
-  // Ensure count up begins AFTER preloader is dismissed so user clearly sees 0 -> target
+  // Ensure count up begins AFTER preloader is dismissed
   const preloader = document.getElementById("preloader");
   if (preloader) {
     const timer = setInterval(() => {
@@ -922,38 +1087,6 @@ function initCountUpAnimations() {
     setTimeout(startCountUpObserver, 2200);
   } else {
     setTimeout(startCountUpObserver, 200);
-  }
-
-  function animateValue(el) {
-    const rawText = el.dataset.targetVal || el.textContent.trim();
-    const match = rawText.match(/^([^\d.]*)(\d+(?:\.\d+)?)(.*)$/);
-    if (!match) return;
-
-    const prefix = match[1] || "";
-    const target = parseFloat(match[2]);
-    const suffix = match[3] || "";
-    const isDecimal = match[2].includes(".");
-    const duration = 2000;
-    const startTime = performance.now();
-
-    el.textContent = prefix + "0" + suffix;
-
-    function update(now) {
-      const elapsed = now - startTime;
-      const progress = Math.max(0, Math.min(1, elapsed / duration));
-      const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-      const current = (target * ease);
-
-      el.textContent = prefix + (isDecimal ? current.toFixed(1) : Math.floor(current)) + suffix;
-
-      if (progress < 1) {
-        requestAnimationFrame(update);
-      } else {
-        el.textContent = rawText;
-      }
-    }
-
-    requestAnimationFrame(update);
   }
 }
 
@@ -1309,4 +1442,127 @@ function initServicesCascade() {
   };
 
   updateCascade(0);
+}
+
+
+/* ==========================================================================
+   SCROLL STEP TIMELINE SERVICES (MATCHING SCROLLSTEPTIMELINE.FRAMER.WEBSITE)
+   ========================================================================== */
+
+/* ==========================================================================
+   FRAMER METHODOLOGY TIMELINE SCROLL ENGINE (MATCHING IMAGES 3 & 4)
+   Dynamic progressive line filling and step highlighting on scroll up & down
+   ========================================================================== */
+function initFramerMethodologyTimeline() {
+  const timeline = document.getElementById('methodologyTimeline');
+  if (!timeline) return;
+
+  const rows = timeline.querySelectorAll('.framer-step-row');
+  if (!rows.length) return;
+
+  let ticking = false;
+
+  function updateTimeline() {
+    // Focus trigger height in the viewport (middle of screen)
+    const triggerY = window.innerHeight * 0.52;
+
+    for (let i = 0; i < rows.length; i++) {
+      const currentRow = rows[i];
+      const currentBadge = currentRow.querySelector('.framer-step-badge');
+      const segmentFill = currentRow.querySelector('.framer-segment-fill');
+      const nextRow = rows[i + 1];
+
+      if (!currentBadge) continue;
+
+      const currentRect = currentBadge.getBoundingClientRect();
+      const currentCenterY = currentRect.top + currentRect.height / 2;
+
+      // Row 0 is active if the section is scrolled into or near view
+      if (i === 0) {
+        if (currentRect.top <= window.innerHeight * 0.85) {
+          currentRow.classList.add('is-active');
+        } else {
+          currentRow.classList.remove('is-active');
+        }
+      }
+
+      // If there is a next step, calculate progressive line fill
+      if (nextRow && segmentFill) {
+        const nextBadge = nextRow.querySelector('.framer-step-badge');
+        if (nextBadge) {
+          const nextRect = nextBadge.getBoundingClientRect();
+          const nextCenterY = nextRect.top + nextRect.height / 2;
+
+          const totalDistance = nextCenterY - currentCenterY;
+
+          if (triggerY <= currentCenterY) {
+            // Above step: fill is 0%, next step is inactive
+            segmentFill.style.height = '0%';
+            nextRow.classList.remove('is-active');
+          } else if (triggerY >= nextCenterY) {
+            // Below next step: fill is 100%, and next step is fully active
+            segmentFill.style.height = '100%';
+            nextRow.classList.add('is-active');
+          } else {
+            // Between current step and next step: fill progress smoothly!
+            const scrolledDistance = triggerY - currentCenterY;
+            const progress = Math.min(100, Math.max(0, (scrolledDistance / totalDistance) * 100));
+            segmentFill.style.height = progress.toFixed(1) + '%';
+
+            if (progress >= 85) {
+              nextRow.classList.add('is-active');
+            } else {
+              nextRow.classList.remove('is-active');
+            }
+          }
+        }
+      }
+    }
+    ticking = false;
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      window.requestAnimationFrame(updateTimeline);
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+
+  // Initial calculation
+  updateTimeline();
+  setTimeout(updateTimeline, 150);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initFramerMethodologyTimeline();
+  initUniversalContactRedirects();
+});
+
+/* ==========================================================================
+   16. UNIVERSAL CONTACT & BOOK A CALL REDIRECTION HANDLER
+   ========================================================================== */
+function initUniversalContactRedirects() {
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a[href*="contact"], .btn-book-call');
+    if (!link) return;
+
+    const href = link.getAttribute('href') || '';
+    const contactSec = document.getElementById('contact') || document.getElementById('katomContactForm');
+
+    // If contact target is on the current page
+    if (contactSec && (href === '#contact' || href === 'contact.html' || href === 'contact.html#contact' || href.endsWith('#contact') || link.classList.contains('btn-book-call'))) {
+      e.preventDefault();
+      contactSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (history.pushState) {
+        history.pushState(null, null, '#contact');
+      }
+    } else if (!contactSec && (href === '#contact' || link.classList.contains('btn-book-call'))) {
+      // If contact section is not on current page, redirect to contact.html
+      e.preventDefault();
+      window.location.href = 'contact.html#contact';
+    }
+  });
 }

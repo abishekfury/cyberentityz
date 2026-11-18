@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -285,7 +285,8 @@
       <!-- Nav CTA Button (Orange Pill with Dark Arrow Circle) -->
       <div class="nav-cta-actions">
         <a href="#contact" class="btn-book-call">
-          <span>Book a call</span>
+          <span class="btn-text-full">Book a call</span>
+          <span class="btn-text-mobile">Contact</span>
           <span class="pill-circle-dark"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 7h12M8 2l5 5-5 5"/></svg></span>
         </a>
         <button class="mobile-hamburger" id="mobileHamburger" aria-label="Toggle menu" onclick="openMobileMenu()">
@@ -313,6 +314,18 @@
     </div>
 
     <div class="mobile-menu-nav-scroll">
+      <!-- QUICK CONTACT ACTION (VISIBLE IMMEDIATELY ON MOBILE DRAWER OPEN) -->
+      <div class="mobile-menu-quick-contact">
+        <a href="contact.html" class="mobile-quick-contact-btn" onclick="closeMobileMenu()">
+          <div class="mobile-quick-contact-left">
+            <span class="mobile-quick-badge">READY TO SECURE?</span>
+            <span class="mobile-quick-title">Contact Our Security Team</span>
+          </div>
+          <span class="mobile-quick-arrow">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 7h12M8 2l5 5-5 5"/></svg>
+          </span>
+        </a>
+      </div>
       <!-- 1. ABOUT US ACCORDION -->
       <div class="mobile-accordion-item">
         <button type="button" class="mobile-accordion-header" onclick="toggleMobileAccordion(this)">

@@ -1,4 +1,4 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    CYBERENTITYZ™ — COMPLETE ENTERPRISE DEFENSE STYLESHEET
    Electric Orange, Deep Obsidian Charcoal & Warm Cream Off-White
    ========================================================================== */
@@ -3443,7 +3443,46 @@ button:hover .svg-rotate-45 {
    ========================================================================== */
 @media (max-width: 1024px) {
   .mega-nav-list { display: none !important; }
-  .nav-cta-actions .btn-book-call { display: none !important; }
+    .btn-text-full { display: none !important; }
+  .btn-text-mobile { display: inline !important; color: #111113 !important; font-weight: 700 !important; }
+  .nav-cta-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.65rem !important;
+  }
+  .nav-cta-actions .btn-book-call {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.45rem !important;
+    padding: 0.45rem 0.55rem 0.45rem 0.95rem !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.2px !important;
+    border-radius: 9999px !important;
+    background: var(--color-orange, #E05A00) !important;
+    color: #111113 !important;
+    box-shadow: 0 4px 14px rgba(224, 90, 0, 0.35) !important;
+    text-decoration: none !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    cursor: pointer !important;
+    transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+  }
+  .nav-cta-actions .btn-book-call .pill-circle-dark {
+    width: 24px !important;
+    height: 24px !important;
+    border-radius: 50% !important;
+    background: #111113 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+  }
+  .nav-cta-actions .btn-book-call .pill-circle-dark svg {
+    width: 11px !important;
+    height: 11px !important;
+    stroke: var(--color-orange, #E05A00) !important;
+  }
   .mobile-hamburger { display: flex !important; }
   .site-header-mega {
     position: sticky !important;
@@ -10034,4 +10073,98 @@ img, video, canvas, svg { max-width: 100%; }
   background: #ffffff !important;
   color: var(--color-orange) !important;
   transform: translateX(3px) !important;
+}
+
+
+/* Desktop / Mobile CTA Text toggles */
+.btn-text-mobile { display: none; }
+.btn-text-full { display: inline; }
+
+/* Quick Contact Action in Mobile Navigation Drawer */
+.mobile-menu-quick-contact {
+  padding: 0.5rem 0 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  margin-bottom: 0.75rem;
+}
+
+.mobile-quick-contact-btn {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  background: linear-gradient(135deg, #E05A00 0%, #c44700 100%) !important;
+  color: #ffffff !important;
+  padding: 0.9rem 1.15rem !important;
+  border-radius: 14px !important;
+  text-decoration: none !important;
+  box-shadow: 0 6px 20px rgba(224, 90, 0, 0.35) !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease !important;
+}
+
+.mobile-quick-contact-btn:hover,
+.mobile-quick-contact-btn:active {
+  transform: translateY(-2px) scale(1.01) !important;
+  box-shadow: 0 10px 25px rgba(224, 90, 0, 0.45) !important;
+}
+
+.mobile-quick-contact-left {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.2rem !important;
+}
+
+.mobile-quick-badge {
+  font-family: var(--font-mono) !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em !important;
+  color: rgba(255, 255, 255, 0.88) !important;
+  text-transform: uppercase !important;
+}
+
+.mobile-quick-title {
+  font-family: var(--font-sans) !important;
+  font-size: 14.5px !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  letter-spacing: -0.2px !important;
+}
+
+.mobile-quick-arrow {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  background: #ffffff !important;
+  color: var(--color-orange, #E05A00) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  transition: transform 0.25s ease !important;
+}
+
+.mobile-quick-contact-btn:hover .mobile-quick-arrow,
+.mobile-quick-contact-btn:active .mobile-quick-arrow {
+  transform: translateX(3px) !important;
+}
+
+.mobile-quick-arrow svg {
+  stroke: var(--color-orange, #E05A00) !important;
+}
+
+@media (max-width: 380px) {
+  .brand-primary-name {
+    font-size: 0.95rem !important;
+  }
+  .nav-cta-actions .btn-book-call {
+    padding: 0.38rem 0.45rem 0.38rem 0.75rem !important;
+    font-size: 11.5px !important;
+  }
+  .nav-cta-actions .btn-book-call .pill-circle-dark {
+    width: 20px !important;
+    height: 20px !important;
+  }
+  .mobile-hamburger {
+    width: 38px !important;
+    height: 38px !important;
+  }
 }

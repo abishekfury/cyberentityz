@@ -1023,22 +1023,44 @@ window.slideCarousel = function(direction) {
 /* ==========================================================================
    11. ALLOY HORIZONTAL EXPANDING ACCORDION (SCREENSHOT 4)
    ========================================================================== */
+let lastAlloyClickTime = 0;
+
 function initAlloyAccordion() {
   const panels = document.querySelectorAll('.alloy-panel');
   panels.forEach((panel, idx) => {
-    panel.addEventListener('click', () => {
-      toggleAlloyPanel(idx);
+    panel.setAttribute('role', 'button');
+    panel.setAttribute('tabindex', '0');
+    panel.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleAlloyPanel(idx);
+      }
     });
   });
 }
 
-window.toggleAlloyPanel = function(index) {
+window.toggleAlloyPanel = function(index, evt) {
+  if (evt) {
+    try { evt.stopPropagation(); } catch (err) {}
+  }
+  const now = Date.now();
+  if (now - lastAlloyClickTime < 250) {
+    return; // Prevent duplicate rapid double events
+  }
+  lastAlloyClickTime = now;
+
   const panels = document.querySelectorAll('.alloy-panel');
+  if (!panels || panels.length === 0) return;
+
+  const targetPanel = panels[index];
+  if (!targetPanel) return;
+
+  const isAlreadyActive = targetPanel.classList.contains('active');
+
   panels.forEach((p, i) => {
     const icon = p.querySelector('.alloy-toggle-icon');
     if (i === index) {
-      const isAlreadyActive = p.classList.contains('active');
-      if (window.innerWidth <= 900 && isAlreadyActive) {
+      if (isAlreadyActive && window.innerWidth <= 900) {
         p.classList.remove('active');
         if (icon) icon.textContent = '+';
       } else {

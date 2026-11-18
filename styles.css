@@ -1686,8 +1686,6 @@ body {
 .grayscale-effect,
 .case-featured-img,
 .sub-case-featured-img,
-.about-featured-img,
-.about-image-card img,
 .case-image-viewport img,
 .sub-case-image img {
   filter: saturate(0) contrast(1.08) !important;
@@ -1705,11 +1703,20 @@ body {
 
 .featured-case-card:hover .case-featured-img,
 .sub-case-card:hover .sub-case-featured-img,
-.about-image-card:hover .about-featured-img,
 .image-zoom-box:hover img,
 .grayscale-effect:hover {
   filter: saturate(1) contrast(1) !important;
   transform: scale(1.06) !important;
+}
+
+/* Industrial Visit Image: Natural Full Color (No Grayscale, No Color-on-hover effect) */
+.about-featured-img,
+.about-image-card img,
+.about-image-card:hover .about-featured-img,
+.about-image-card:hover img {
+  filter: none !important;
+  transform: none !important;
+  transition: none !important;
 }
 
 /* ==========================================================================
@@ -3583,11 +3590,12 @@ button:hover .svg-rotate-45 {
 @media (max-width: 768px) {
   .top-announcement-strip {
     display: block !important;
-    padding: 0.45rem 0 !important;
+    padding: 0.5rem 0 !important;
   }
   .announcement-center-wrap {
-    padding: 0 2.2rem 0 0.85rem !important;
-    justify-content: flex-start !important;
+    padding: 0 1rem !important;
+    justify-content: center !important;
+    text-align: center !important;
   }
   .announcement-text-center {
     font-size: 0.68rem !important;
@@ -10166,5 +10174,180 @@ img, video, canvas, svg { max-width: 100%; }
   .mobile-hamburger {
     width: 38px !important;
     height: 38px !important;
+  }
+}
+
+/* ==========================================================================
+   MOBILE VIEW FIXES: WHY CHOOSE US 6 CARDS (FULL TEXT VISIBLE)
+   ========================================================================== */
+@media (max-width: 900px) {
+  .alloy-section-wrap {
+    padding: 2.75rem 0 !important;
+    border-radius: 18px !important;
+  }
+  .alloy-accordion-wrap {
+    flex-direction: column !important;
+    min-height: auto !important;
+    gap: 0.85rem !important;
+    width: 100% !important;
+  }
+  .alloy-panel {
+    flex: none !important;
+    width: 100% !important;
+    min-height: auto !important;
+    height: auto !important;
+    padding: 1.15rem 1.25rem !important;
+    box-sizing: border-box !important;
+    border-radius: 14px !important;
+    overflow: visible !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .alloy-panel:not(.active) {
+    background: #1c1c1f !important;
+  }
+  .alloy-panel-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+  }
+  .alloy-vertical-title {
+    writing-mode: horizontal-tb !important;
+    transform: none !important;
+    margin: 0.45rem 0 0 !important;
+    font-size: 1.15rem !important;
+    font-weight: 600 !important;
+    color: #ffffff !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+    text-align: left !important;
+    line-height: 1.35 !important;
+  }
+  .alloy-panel.active .alloy-vertical-title {
+    display: none !important;
+  }
+  .alloy-collapsed-art {
+    display: none !important;
+  }
+  .alloy-panel.active {
+    background: #e8b7be !important;
+    min-height: auto !important;
+    height: auto !important;
+  }
+  .alloy-expanded-body {
+    height: auto !important;
+    display: none;
+    flex-direction: column !important;
+    padding-top: 0.85rem !important;
+    gap: 0.85rem !important;
+  }
+  .alloy-panel.active .alloy-expanded-body {
+    display: flex !important;
+  }
+  .alloy-project-img {
+    height: 180px !important;
+    width: 100% !important;
+    border-radius: 12px !important;
+    object-fit: cover !important;
+  }
+  .alloy-expanded-bottom {
+    border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
+    padding-top: 0.85rem !important;
+  }
+  .alloy-expanded-title {
+    font-size: 1.3rem !important;
+    font-weight: 700 !important;
+    color: #18181b !important;
+    margin-bottom: 0.45rem !important;
+    word-break: break-word !important;
+    line-height: 1.25 !important;
+  }
+  .alloy-expanded-desc {
+    font-size: 14.5px !important;
+    line-height: 1.65 !important;
+    color: #27272a !important;
+    margin-bottom: 1.15rem !important;
+    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
+  }
+  .alloy-expanded-btn {
+    display: inline-flex !important;
+    width: 100% !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+    padding: 0.75rem 1.25rem !important;
+  }
+}
+
+/* ==========================================================================
+   MOBILE VIEW FIXES: ELEVATED SERVICES CAROUSEL (NO BROKEN SPLIT CARDS)
+   ========================================================================== */
+@media (max-width: 680px) {
+  .elevated-services-section {
+    padding: 4.5rem 0 5.5rem !important;
+  }
+  .services-header-split {
+    margin-bottom: 1.75rem !important;
+    gap: 1.25rem !important;
+  }
+  .service-category-pills {
+    width: 100% !important;
+    overflow-x: auto !important;
+    justify-content: flex-start !important;
+    padding: 3px !important;
+  }
+  .srv-tab {
+    padding: 0.45rem 0.85rem !important;
+    font-size: 12px !important;
+    white-space: nowrap !important;
+  }
+  .elevated-carousel-viewport {
+    padding: 0.5rem 0 1.5rem !important;
+    width: 100% !important;
+    overflow: hidden !important;
+  }
+  .elevated-carousel-track {
+    gap: 1rem !important;
+    padding: 0.5rem 1.25rem 1.5rem !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .elevated-service-card {
+    width: calc(100vw - 2.5rem) !important;
+    min-width: calc(100vw - 2.5rem) !important;
+    max-width: calc(100vw - 2.5rem) !important;
+    padding: 1.75rem 1.35rem !important;
+    scroll-snap-align: center !important;
+    scroll-snap-stop: always !important;
+    min-height: auto !important;
+    box-sizing: border-box !important;
+    border-radius: 20px !important;
+  }
+  .elevated-card-top {
+    margin-bottom: 1.15rem !important;
+  }
+  .elevated-card-code {
+    font-size: 10px !important;
+  }
+  .elevated-card-pill {
+    font-size: 10px !important;
+    padding: 0.25rem 0.65rem !important;
+  }
+  .elevated-card-title {
+    font-size: 1.45rem !important;
+    line-height: 1.25 !important;
+  }
+  .elevated-card-desc {
+    font-size: 13.5px !important;
+    line-height: 1.6 !important;
+    margin: 0.85rem 0 1.5rem !important;
+  }
+  .elevated-card-footer {
+    padding-top: 1rem !important;
+  }
+  .btn-card-consult {
+    padding: 0.5rem 0.6rem 0.5rem 1rem !important;
+    font-size: 12.5px !important;
   }
 }

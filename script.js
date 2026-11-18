@@ -1,4 +1,4 @@
-﻿/**
+/**
  * CYBERENTITYZ™ — Enterprise Nord & Briskinfosec Architecture
  * Mega-Menus, Domain Switcher, 3D Mesh & Interactive Practices
  */
@@ -1008,8 +1008,16 @@ window.switchServiceCategory = function(cat) {
 window.slideCarousel = function(direction) {
   const track = document.getElementById('elevatedCarouselTrack');
   if (!track) return;
-  const cardWidth = 360;
-  track.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
+  const visibleCards = Array.from(track.querySelectorAll('.elevated-service-card')).filter(c => c.style.display !== 'none');
+  if (visibleCards.length > 0) {
+    const card = visibleCards[0];
+    const style = window.getComputedStyle(track);
+    const gap = parseFloat(style.gap) || 24;
+    const scrollStep = card.offsetWidth + gap;
+    track.scrollBy({ left: direction * scrollStep, behavior: 'smooth' });
+  } else {
+    track.scrollBy({ left: direction * (track.clientWidth * 0.9), behavior: 'smooth' });
+  }
 };
 
 /* ==========================================================================
@@ -1029,8 +1037,14 @@ window.toggleAlloyPanel = function(index) {
   panels.forEach((p, i) => {
     const icon = p.querySelector('.alloy-toggle-icon');
     if (i === index) {
-      p.classList.add('active');
-      if (icon) icon.textContent = '✕';
+      const isAlreadyActive = p.classList.contains('active');
+      if (window.innerWidth <= 900 && isAlreadyActive) {
+        p.classList.remove('active');
+        if (icon) icon.textContent = '+';
+      } else {
+        p.classList.add('active');
+        if (icon) icon.textContent = '✕';
+      }
     } else {
       p.classList.remove('active');
       if (icon) icon.textContent = '+';
